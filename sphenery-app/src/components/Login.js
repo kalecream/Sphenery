@@ -58,8 +58,6 @@ function Login({ setToken }) {
                     AuthKey: process.env.AuthKey
                 }
             });
-            console.log(response.data)
-            // please remove the above line before submitting, Sabrina
             setToken(response.data.token);
         } catch (error) {
             console.error(error);
