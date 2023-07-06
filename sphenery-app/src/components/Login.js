@@ -45,13 +45,13 @@ export const Button = styled.button`
 //TODO: Add Form validation, Error handling & User feedback if enough time left.
 
 function Login({ setToken }) {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
     const loginUser = async () => {
         try {
             const response = await axios.post('https://sphenery.com/auth/login', {
-                email,
+                username,
                 password
             }, {
                 headers: {
@@ -67,7 +67,7 @@ function Login({ setToken }) {
     return (
         <Container>
             <h1>KaleCream</h1>
-            <Input type="email" placeholder="Email" onChange={e => setEmail(e.target.value)} />
+            <Input type="email" placeholder="Email" onChange={e => setUsername(e.target.value)} />
             <Input type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
             <Button onClick={loginUser}>Login</Button>
         </Container>
