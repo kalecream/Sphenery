@@ -51,12 +51,12 @@ function Login({ setToken }) {
     const loginUser = async () => {
         try {
             const response = await axios.post('https://sphenery.com/auth/login', {
-                "username": username,
-                "password": password,
+                username, password,
+            
             }, {
                 headers: {
                     AuthKey: process.env.REACT_APP_AUTH_KEY,
-                    accept: 'text/plain',
+                    'Accept': 'text/plain',
                     'Content-Type': 'application/json'
                 }
             });

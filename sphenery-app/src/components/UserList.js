@@ -52,7 +52,7 @@ function UserList({ token, setToken }) {
                 const response = await axios.post('https://sphenery.com/refresh-token', {}, {
                     headers: {
                         AuthKey: process.env.REACT_APP_AUTH_KEY,
-                        accept: 'text/plain',
+                        'Accept': 'text/plain',
                         'Content-Type': 'application/json'
                     }
                 });
