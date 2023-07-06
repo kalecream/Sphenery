@@ -1,7 +1,5 @@
-// src/App.js
-
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Register from './components/Register';
 import Login from './components/Login';
 import UserList from './components/UserList';
@@ -11,20 +9,12 @@ function App() {
 
     return (
         <Router>
-            <Switch>
-                <Route path="/register">
-                    {token ? <Redirect to="/users" /> : <Register />}
-                </Route>
-                <Route path="/login">
-                    {token ? <Redirect to="/users" /> : <Login setToken={setToken} />}
-                </Route>
-                <Route path="/users">
-                    {token ? <UserList token={token} setToken={setToken} /> : <Redirect to="/login" />}
-                </Route>
-                <Route path="/">
-                    {token ? <Redirect to="/users" /> : <Redirect to="/login" />}
-                </Route>
-            </Switch>
+            <Routes>
+                <Route path="/register" element={token ? <Navigate to="/users" /> : <Register />} />
+                <Route path="/login" element={token ? <Navigate to="/users" /> : <Login setToken={setToken} />} />
+                <Route path="/users" element={token ? <UserList token={token} setToken={setToken} /> : <Navigate to="/login" />} />
+                <Route path="/" element={token ? <Navigate to="/users" /> : <Navigate to="/login" />} />
+            </Routes>
         </Router>
     );
 }
