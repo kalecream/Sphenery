@@ -66,6 +66,7 @@ function Login({ setToken }) {
 
     return (
         <Container>
+            {console.log(process.env.AuthKey)}
             <h1>KaleCream</h1>
             <Input type="email" placeholder="Email" onChange={e => setUsername(e.target.value)} />
             <Input type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
