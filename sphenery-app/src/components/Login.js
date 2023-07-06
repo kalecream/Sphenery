@@ -51,11 +51,13 @@ function Login({ setToken }) {
     const loginUser = async () => {
         try {
             const response = await axios.post('https://sphenery.com/auth/login', {
-                username,
-                password
+                "username": username,
+                "password": password,
             }, {
                 headers: {
-                    AuthKey: process.env.AuthKey
+                    AuthKey: process.env.REACT_APP_AUTH_KEY,
+                    accept: 'text/plain',
+                    'Content-Type': 'application/json'
                 }
             });
             setToken(response.data.token);
@@ -66,7 +68,7 @@ function Login({ setToken }) {
 
     return (
         <Container>
-            <h1>KaleCream</h1>
+            <h1>Swagger</h1>
             <Input type="email" placeholder="Email" onChange={e => setUsername(e.target.value)} />
             <Input type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
             <Button onClick={loginUser}>Login</Button>

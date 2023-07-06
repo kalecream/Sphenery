@@ -53,13 +53,15 @@ function Register() {
 
         try {
             const response = await axios.post('https://sphenery.com/auth/register', {
-                username,
-                password,
-                firstName: firstName,
-                lastName: lastName
+                "username": username,
+                "password" : password,
+                "firstName" : firstName,
+                "lastName": lastName
             }, {
                 headers: {
-                    AuthKey: process.env.AuthKey
+                    AuthKey: process.env.REACT_APP_AUTH_KEY,
+                    accept: 'text/plain',
+                    'Content-Type': 'application/json'
                 }
             });
             console.log(response.data);
