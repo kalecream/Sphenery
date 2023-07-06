@@ -42,6 +42,7 @@ export const Button = styled.button`
 `;
 
 // Component
+//TODO: Add Form validation, Error handling & User feedback if enough time left.
 
 function Login({ setToken }) {
     const [email, setEmail] = useState('');
@@ -49,7 +50,7 @@ function Login({ setToken }) {
 
     const loginUser = async () => {
         try {
-            const response = await axios.post('https://sphenery.com/login', {
+            const response = await axios.post('https://sphenery.com/auth/login', {
                 email,
                 password
             }, {
@@ -57,6 +58,8 @@ function Login({ setToken }) {
                     AuthKey: process.env.AuthKey
                 }
             });
+            console.log(response.data)
+            // please remove the above line before submitting, Sabrina
             setToken(response.data.token);
         } catch (error) {
             console.error(error);

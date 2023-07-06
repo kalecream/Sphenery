@@ -52,7 +52,7 @@ function Register() {
         event.preventDefault();
 
         try {
-            const response = await axios.post('https://sphenery.com/register', {
+            const response = await axios.post('https://sphenery.com/auth/register', {
                 email,
                 password,
                 first_name: firstName,
