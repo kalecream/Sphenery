@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 // Styles
 
-const Container = styled.div`
+export const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -16,7 +16,7 @@ const Container = styled.div`
     padding: 20px;
 `;
 
-const Input = styled.input`
+export const Input = styled.input`
     margin: 10px 0;
     padding: 10px;
     width: 80%;
@@ -25,7 +25,7 @@ const Input = styled.input`
     border: 1px solid #ddd;
 `;
 
-const Button = styled.button`
+export const Button = styled.button`
     margin-top: 20px;
     padding: 10px 20px;
     width: 80%;
