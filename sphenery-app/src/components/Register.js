@@ -43,7 +43,7 @@ const Button = styled.button`
 `;
 
 function Register() {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -53,10 +53,10 @@ function Register() {
 
         try {
             const response = await axios.post('https://sphenery.com/auth/register', {
-                email,
+                username,
                 password,
-                first_name: firstName,
-                last_name: lastName
+                firstName: firstName,
+                lastName: lastName
             }, {
                 headers: {
                     AuthKey: process.env.AuthKey
@@ -74,7 +74,7 @@ function Register() {
             <Form onSubmit={registerUser}>
                 <Input type="text" placeholder="First Name" required onChange={e => setFirstName(e.target.value)} />
                 <Input type="text" placeholder="Last Name" required onChange={e => setLastName(e.target.value)} />
-                <Input type="email" placeholder="Email" required onChange={e => setEmail(e.target.value)} />
+                <Input type="email" placeholder="Email" required onChange={e => setUsername(e.target.value)} />
                 <Input type="password" placeholder="Password" required onChange={e => setPassword(e.target.value)} />
                 <Button type="submit">Register</Button>
             </Form>
