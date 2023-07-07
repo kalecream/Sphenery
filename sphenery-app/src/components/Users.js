@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import Toast from './Toast';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
     display: flex;
@@ -30,18 +31,40 @@ const User = styled.p`
 function UserList({ token, setToken }) {
     const [users, setUsers] = useState([]);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
-    
+    const accessTokenHasExpired = () => {
+        const now = new Date();
+        const expirationDate = new Date(token.accessToken.expireAt);
+        return now >= expirationDate;
+    };
+
+    const refreshTokenHasExpired = () => {
+        const now = new Date();
+        const expirationDate = new Date(token.refreshToken.expireAt);
+        return now >= expirationDate;
+    };
+
+
 
     useEffect(() => {
 
-        setError(null);
+        // setError(null);
+
+        // if (accessTokenHasExpired) {
+        //     refreshTokenHasExpired ? navigate('/login') : await refreshAccessToken;
+        // }
+        
 
         const getUsers = async () => {
+
             try {
-                const response = await axios.get('https://sphenery.com/users', {token: token.accessToken.token }, {
+
+                
+
+                const response = await axios.get('https://sphenery.com/users', {
                     headers: {
-                        Authorization: `Bearer ${token.accessToken}`,
+                        Authorization: `Bearer ${token.accessToken.token}`,
                     }
                 });
                 setUsers(response.data);
@@ -56,14 +79,17 @@ function UserList({ token, setToken }) {
 
         const refreshAccessToken = async () => {
             try {
-                const response = await axios.post('https://sphenery.com/auth/login-refresh', { token: token.accessToken}, {
+                const response = await axios.post('https://sphenery.com/auth/login-refresh', { token: token.refreshToken.token}, {
                     headers: {
-                        AuthKey: process.env.REACT_APP_AUTH_KEY
+                        AuthKey: process.env.REACT_APP_AUTH_KEY,
+                        'Authorization': `Bearer ${token.refreshToken}`,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
                     }
                 });
-                setToken(response.data);
+                setToken({acessToken: response.data.accessToken, refreshToken: response.data.refreshToken});
             } catch (error) {
-                setError('Login failed: '  + error.response.data.message);
+                setError( error.response.data.message ? 'Getting users failed: ' + error.response.data.message : '' );
             }
         };
 
