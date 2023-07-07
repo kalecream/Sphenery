@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import Toast from './Toast';
 
 // Styles
 
@@ -14,6 +15,14 @@ export const Container = styled.div`
     height: 100vh;
     background: #f8f9fa;
     padding: 20px;
+`;
+
+export const Form = styled.form`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    max-width: 300px;
 `;
 
 export const Input = styled.input`
@@ -45,33 +54,48 @@ export const Button = styled.button`
 //TODO: Add Form validation, Error handling & User feedback if enough time left.
 
 function Login({ setToken }) {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [credentials, setCredentials] = useState({
+        username: '',
+        password: '',
+    });
+    const [error, setError] = useState(null);
 
-    const loginUser = async () => {
+    const handleInputChange = (e) => {
+        setCredentials({
+        ...credentials,
+        [e.target.name]: e.target.value,
+        });
+    };
+
+    const loginUser = async (event) => {
+        event.preventDefault();
+
         try {
             const response = await axios.post('https://sphenery.com/auth/login', {
-                username, password,
-            
+                username: credentials.username, 
+                password: credentials.password,
             }, {
                 headers: {
                     AuthKey: process.env.REACT_APP_AUTH_KEY,
-                    'Accept': 'text/plain',
+                    'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 }
             });
             setToken(response.data.token);
         } catch (error) {
-            console.error(error);
+            setError('Login failed: ' + error.response.data.message);
         }
     };
 
     return (
         <Container>
             <h1>Swagger</h1>
-            <Input type="email" placeholder="Email" onChange={e => setUsername(e.target.value)} />
-            <Input type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
-            <Button onClick={loginUser}>Login</Button>
+            <Form onSubmit={loginUser}>
+                <Input type="email" name="username" placeholder="Email" onChange={handleInputChange} required />
+                <Input type="password" name="password" placeholder="Password" onChange={handleInputChange} required />
+                <Button type="submit">Login</Button>
+            </Form>
+            {error && <Toast message={error} />}
         </Container>
     );
 }
