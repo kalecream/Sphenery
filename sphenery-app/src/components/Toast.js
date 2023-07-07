@@ -6,7 +6,7 @@ import { styled } from 'styled-components';
 
 const StyledToast = styled.div`
     position: absolute;
-    bottom: 50px;
+    bottom: 200px;
     border: 1px solid #007bff;
     padding: 2rem;
     color: black;
