@@ -13,10 +13,10 @@ function App() {
     return (
         <Router>
             <Routes>
-                <Route path="/register" element={token ? <Navigate to="/users" /> : <Register />} />
-                <Route path="/login" element={token ? <Navigate to="/users" /> : <Login setToken={setToken} />} />
-                <Route path="/users" element={token ? <UserList token={token} setToken={setToken} /> : <Navigate to="/login" />} />
-                <Route path="/" element={token ? <Navigate to="/users" /> : <Navigate to="/login" />} />
+                <Route path="/register" element={token.accessToken ? <Navigate to="/users" /> : <Register />} />
+                <Route path="/login" element={token.accessToken ? <Navigate to="/users" /> : <Login setToken={setToken} />} />
+                <Route path="/users" element={token.accessToken ? <UserList token={token} setToken={setToken} /> : <Navigate to="/login" />} />
+                <Route path="/" element={token.accessToken ? <Navigate to="/users" /> : <Navigate to="/login" />} />
             </Routes>
         </Router>
     );
