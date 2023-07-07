@@ -63,6 +63,8 @@ function Register() {
     const registerUser = async (event) => {
         event.preventDefault();
 
+        setError(null);
+
         try {
             const response = await axios.post('https://sphenery.com/auth/register', {
                  username: credentials.username, 
@@ -76,9 +78,8 @@ function Register() {
                     'Content-Type': 'application/json'
                 }
             });
-            console.log(response.data);
         } catch (error) {
-            setError('Login failed: ' + error.response.data + ' ' +error.response.data.message);
+            setError('Register failed: ' + error.response.data + ' ' +error.response.data.message);
         }
     };
 
@@ -86,8 +87,8 @@ function Register() {
         <Container>
             <h1>Register</h1>
             <Form onSubmit={registerUser}>
-                <Input type="text" placeholder="First Name" name="firstName" required onChange={handleInputChange} />
-                <Input type="text" placeholder="Last Name" name="lastName" required onChange={handleInputChange} />
+                <Input type="text" placeholder="First Name" name="firstName"  onChange={handleInputChange} />
+                <Input type="text" placeholder="Last Name" name="lastName"  onChange={handleInputChange} />
                 <Input type="email" placeholder="Email" name="username" required onChange={handleInputChange} />
                 <Input type="password" placeholder="Password" name="password"  required onChange={handleInputChange} />
                 <Button type="submit">Register</Button>
