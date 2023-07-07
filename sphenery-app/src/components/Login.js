@@ -5,8 +5,6 @@ import axios from 'axios';
 import styled from 'styled-components';
 import Toast from './Toast';
 
-// Styles
-
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -50,9 +48,6 @@ export const Button = styled.button`
     }
 `;
 
-// Component
-//TODO: Add Form validation, Error handling & User feedback if enough time left.
-
 function Login({ setToken }) {
     const [credentials, setCredentials] = useState({
         username: '',
@@ -70,6 +65,8 @@ function Login({ setToken }) {
     const loginUser = async (event) => {
         event.preventDefault();
 
+        setError(null);
+
         try {
             const response = await axios.post('https://sphenery.com/auth/login', {
                 username: credentials.username, 
@@ -81,7 +78,7 @@ function Login({ setToken }) {
                     'Content-Type': 'application/json'
                 }
             });
-            setToken(response.data.token);
+            setToken({ accessToken: response.data.accessToken, refreshToken: response.data.refreshToken });
         } catch (error) {
             setError('Login failed: ' + error.response.data.message);
         }
