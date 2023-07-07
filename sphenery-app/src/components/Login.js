@@ -80,7 +80,7 @@ function Login({ setToken }) {
             });
             setToken({ accessToken: response.data.accessToken, refreshToken: response.data.refreshToken });
         } catch (error) {
-            setError('Login failed: ' + error.response.data.message);
+            setError( error.response.data.message ? 'Login failed: ' + error.response.data.message : '' );
         }
     };
 
