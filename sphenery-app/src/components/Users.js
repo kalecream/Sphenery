@@ -31,12 +31,17 @@ function UserList({ token, setToken }) {
     const [users, setUsers] = useState([]);
     const [error, setError] = useState(null);
 
+    
+
     useEffect(() => {
+
+        setError(null);
+
         const getUsers = async () => {
             try {
-                const response = await axios.get('https://sphenery.com/users', {
+                const response = await axios.get('https://sphenery.com/users', {token: token.accessToken.token }, {
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        Authorization: `Bearer ${token.accessToken}`,
                     }
                 });
                 setUsers(response.data);
@@ -44,23 +49,21 @@ function UserList({ token, setToken }) {
                 if (error.response && error.response.status === 401) {
                     refreshAccessToken();
                 } else {
-                    setError('Login failed: ' + error.response.data + ' ' +error.response.data.message);
+                    setError('Failed: ' + error.response.data.message);
                 }
             }
         };
 
         const refreshAccessToken = async () => {
             try {
-                const response = await axios.post('https://sphenery.com/login-refresh', {}, {
+                const response = await axios.post('https://sphenery.com/auth/login-refresh', { token: token.accessToken}, {
                     headers: {
-                        AuthKey: process.env.REACT_APP_AUTH_KEY,
-                        'Accept': 'text/plain',
-                        'Content-Type': 'application/json'
+                        AuthKey: process.env.REACT_APP_AUTH_KEY
                     }
                 });
-                setToken(response.data.token);
+                setToken(response.data);
             } catch (error) {
-                setError('Login failed: ' + error.response.data + ' ' +error.response.data.message);
+                setError('Login failed: '  + error.response.data.message);
             }
         };
 
@@ -70,10 +73,10 @@ function UserList({ token, setToken }) {
     return (
         <Container>
             <Title>Users</Title>
-            {error && <Toast message={error} />}
             {users.map(user => (
                 <User key={user.id}>{user.email}</User>
             ))}
+            {error && <Toast message={error} />}
         </Container>
     );
 }
