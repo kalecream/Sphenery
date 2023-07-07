@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import Toast from './Toast';
 
 const Container = styled.div`
   display: flex;
@@ -43,20 +44,31 @@ const Button = styled.button`
 `;
 
 function Register() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+    const [credentials, setCredentials] = useState({
+        username: '',
+        password: '',
+        firstName: '',
+        lastName: '',
+    });
+
+    const [error, setError] = useState(null);
+
+    const handleInputChange = (e) => {
+        setCredentials({
+        ...credentials,
+        [e.target.name]: e.target.value,
+        });
+    };
 
     const registerUser = async (event) => {
         event.preventDefault();
 
         try {
             const response = await axios.post('https://sphenery.com/auth/register', {
-                username,
-                password,
-                firstName,
-                lastName
+                 username: credentials.username, 
+                password: credentials.password,
+                firstName: credentials.firstName,
+                lastName: credentials.lastName,
             }, {
                 headers: {
                     AuthKey: process.env.REACT_APP_AUTH_KEY,
@@ -66,7 +78,7 @@ function Register() {
             });
             console.log(response.data);
         } catch (error) {
-            console.error(error);
+            setError('Login failed: ' + error.response.data + ' ' +error.response.data.message);
         }
     };
 
@@ -74,11 +86,12 @@ function Register() {
         <Container>
             <h1>Register</h1>
             <Form onSubmit={registerUser}>
-                <Input type="text" placeholder="First Name" required onChange={e => setFirstName(e.target.value)} />
-                <Input type="text" placeholder="Last Name" required onChange={e => setLastName(e.target.value)} />
-                <Input type="email" placeholder="Email" required onChange={e => setUsername(e.target.value)} />
-                <Input type="password" placeholder="Password" required onChange={e => setPassword(e.target.value)} />
+                <Input type="text" placeholder="First Name" name="firstName" required onChange={handleInputChange} />
+                <Input type="text" placeholder="Last Name" name="lastName" required onChange={handleInputChange} />
+                <Input type="email" placeholder="Email" name="username" required onChange={handleInputChange} />
+                <Input type="password" placeholder="Password" name="password"  required onChange={handleInputChange} />
                 <Button type="submit">Register</Button>
+                {error && <Toast message={error} />}
             </Form>
         </Container>
     );

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import Toast from './Toast';
 
 const Container = styled.div`
     display: flex;
@@ -28,6 +29,7 @@ const User = styled.p`
 
 function UserList({ token, setToken }) {
     const [users, setUsers] = useState([]);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const getUsers = async () => {
@@ -42,7 +44,7 @@ function UserList({ token, setToken }) {
                 if (error.response && error.response.status === 401) {
                     refreshAccessToken();
                 } else {
-                    console.error(error);
+                    setError('Login failed: ' + error.response.data + ' ' +error.response.data.message);
                 }
             }
         };
@@ -58,7 +60,7 @@ function UserList({ token, setToken }) {
                 });
                 setToken(response.data.token);
             } catch (error) {
-                console.error(error);
+                setError('Login failed: ' + error.response.data + ' ' +error.response.data.message);
             }
         };
 
@@ -68,6 +70,7 @@ function UserList({ token, setToken }) {
     return (
         <Container>
             <Title>Users</Title>
+            {error && <Toast message={error} />}
             {users.map(user => (
                 <User key={user.id}>{user.email}</User>
             ))}
