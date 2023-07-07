@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Register from './components/Register';
 import Login from './components/Login';
-import UserList from './components/UserList';
+import UserList from './components/Users';
 
 function App() {
-    const [token, setToken] = useState(null);
+    const [token, setToken] = useState({
+        accessToken: null,
+        refreshToken: null,
+    });
 
     return (
         <Router>
