@@ -5,16 +5,15 @@ import 'styled-components';
 import { styled } from 'styled-components';
 
 const StyledToast = styled.div`
-    position: absolute;
-    bottom: 200px;
-    border: 1px solid #007bff;
-    padding: 2rem;
-    color: black;
-    width: 80%;
+    background-color: #d9feab;
+    padding: 0.5rem;
+    color: #020305;
+    width: 425px;
     text-align: center;
-    font-weight: 800;
-    border-radius: 5px;
-    margin: 10px;
+    font-weight: 500;
+    font-size: 0.8rem;
+    border-radius: 0.4rem;
+    margin: 1rem 0;
 `;
 
 function Toast({ message, type = 'error' }) {
