@@ -1,14 +1,11 @@
-// src/components/Toast.js
-
 import React from 'react';
-import 'styled-components';
 import { styled } from 'styled-components';
 
 const StyledToast = styled.div`
-    background-color: #d9feab;
+    color: var(--accent);
     padding: 0.5rem;
-    color: #020305;
-    width: 425px;
+    border: 3px solid var(--accent);
+    width: 422px;
     text-align: center;
     font-weight: 500;
     font-size: 0.8rem;
@@ -16,7 +13,12 @@ const StyledToast = styled.div`
     margin: 1rem 0;
 `;
 
-function Toast({ message, type = 'error' }) {
+interface ToastProps {
+    message: string | null;
+    type?: string;
+}
+
+const Toast:React.FC<ToastProps> = ({ message, type = 'error' }) => {
 
     return (
         <StyledToast>
