@@ -1,14 +1,15 @@
 /* Code from  https://www.web-leb.com/code/17 */
 
 @import url('https://fonts.googleapis.com/css?family=Inter:400,500,600,700,800,900');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
 
 :root {
   --primary: #260181;
   --primary-dark: #ffffff;
   --primary-light: #d9cbfa;
   --accent: #d9feab;
-  --black: #020305;
-  --grey: ;
+  --black: #000000;
+  --grey: #ffffff;
 }
 
 * {
@@ -26,15 +27,14 @@ body {
 	background-color: var(--primary-dark);
   display: grid;
   place-items: center;
-  /* background-position: center;
+  background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  background-clip: border-box; */
-  background: #52c234;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to top, #061700 10% , #52c234 100%);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to top, #061700 10%, #52c234 100%); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-
+  background-clip: border-box; 
+  background: url(https://imgur.com/R42ne45.jpg);
+  /* background: #9796f0;  /* fallback for old browsers */
+  /* background: -webkit-linear-gradient(to top, #fbc7d4, #9796f0);  Chrome 10-25, Safari 5.1-6 */
+  /* background: linear-gradient(to top, #fbc7d4, #9796f0); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 body {
@@ -69,6 +69,15 @@ section {
   display: grid;
   align-content: center;
   height: fit-content;
+}
+
+#signature {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  font-size: 1.8rem;
+  font-family: 'Playfair Display', serif;
+  color: var(--accent);
 }
 
 .section-wrapper {
@@ -183,7 +192,7 @@ background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/s
   letter-spacing: 0.5px;
   outline: none;
   color: var(--accent);
-  background-color: #1f2029;
+  background-color: var(--black);
   border: none;
   -webkit-transition: all 200ms linear;
   transition: all 200ms linear;
