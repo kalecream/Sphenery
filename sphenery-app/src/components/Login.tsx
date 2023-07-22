@@ -146,7 +146,10 @@ const Login: React.FC<LoginProps> = ({ setToken }) => {
                     </div>
                     {error && <Toast message={error} />}
             </div>
-        </div> 
+            <div id="signature">
+            <a href="https://www.kalecream.com">K.</a>
+            </div>
+    </div> 
     );
 }
 
