@@ -120,7 +120,7 @@ const UserList: React.FC<UserListProps> = ({ token, setToken }) => {
 
     return (
         <Container>
-            <p>← Back to <a href="/login">Login</a></p>
+            <p><a href="/login">← Back to Login</a></p>
             <Title>Users ({users.length})</Title>
             {users.map(user => (
                 <User key={user.id}>
