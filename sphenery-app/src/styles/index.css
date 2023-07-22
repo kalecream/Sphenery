@@ -38,7 +38,7 @@ body {
 }
 
 body {
-  color: #d9feab;
+  color: var(--accent);
 }
 
 a {
@@ -119,7 +119,7 @@ display: none;
   height: 36px;
   border-radius: 50%;
   color: var(--accent);
-  background-color: #020305;
+  background-color: var(--black);
   font-family: 'unicons';
   content: '\eb4f';
   z-index: 20;
@@ -273,7 +273,7 @@ input:-internal-autofill-selected .input-icon {
   color: var(--black);
 }
 .btn:hover{  
-  background-color: #000000;
+  background-color: var(--black);
   color: var(--accent);
   box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
 }
