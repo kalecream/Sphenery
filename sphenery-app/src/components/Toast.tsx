@@ -2,6 +2,7 @@ import React from 'react';
 import { styled } from 'styled-components';
 
 const StyledToast = styled.div`
+    background-color: var(--black);
     color: var(--accent);
     padding: 0.5rem;
     border: 3px solid var(--accent);

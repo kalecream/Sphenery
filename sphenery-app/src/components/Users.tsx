@@ -12,7 +12,9 @@ const Container = styled.div`
     align-items: center;
     margin: 0 auto;
     padding: 2rem;
-    max-width: 600px;
+    width: 800px;
+    background-color: var(--black);
+    border-radius: var(--border-radius);
 `;
 
 const Title = styled.h1`
@@ -76,7 +78,9 @@ const UserList: React.FC<UserListProps> = ({ token, setToken }) => {
                         Authorization: `Bearer ${token.accessToken.token}`,
                     }
                 });
+
                 setUsers(response.data);
+
             } catch (error:any) {
                 if (error.response && error.response.status === 401) {
                     refreshAccessToken();
