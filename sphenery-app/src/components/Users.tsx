@@ -12,9 +12,14 @@ const Container = styled.div`
     align-items: center;
     margin: 0 auto;
     padding: 2rem;
-    width: 800px;
+    max-width: 800px;
+    min-width: 275px;
     background-color: var(--black);
     border-radius: var(--border-radius);
+
+    & .accent {
+        color: var(--accent);
+    }
 `;
 
 const Title = styled.h1`
@@ -124,8 +129,7 @@ const UserList: React.FC<UserListProps> = ({ token, setToken }) => {
 
     return (
         <Container>
-            <p><a href="/login">← Back to Login</a></p>
-            <Title>Users ({users.length})</Title>
+            <Title>Users (<span className="accent">{users.length}</span>)</Title>
             {users.map(user => (
                 <User key={user.id}>
                     <p>{user.id}</p>
